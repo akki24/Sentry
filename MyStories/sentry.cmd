@@ -20,24 +20,26 @@ call :checkJDK8
 if NOT ERRORLEVEL 0 goto :exit
 
 
-
-
-call :checkOS
+call :checkOS "Microsoft.Windows.10.Pro"
 if NOT ERRORLEVEL 0 goto :exit
 
-call :checkRAM "16000000000"
+call :checkRAM 
 if NOT ERRORLEVEL 0 goto :exit
 
-call :checkInternetSpeed 150ms
+
+call :convertGB "16"
+if NOT ERRORLEVEL 0 goto :exit
+
+call :checkInternetSpeed "150"
 if NOT ERRORLEVEL 0 goto :exit
 
 call :resolveEnv
 if NOT ERRORLEVEL 0 goto :exit
 
-set list=%JAVA% %JAVAVER% %Version% %RAM% %Average%
-(for %%a in (%list%) do ( 
-   echo %%a 
-))
+REM set list=%JAVA% %JAVAVER% %Version% %RAM% %Average%
+REM	(for %%a in (%list%) do ( 
+REM	echo %%a 
+REM	))
 
 
 endlocal
@@ -51,6 +53,8 @@ goto :eof
 	.commons.cmd %*
 		
 :checkJava
+	.commons.cmd %*
+:convertGB
 	.commons.cmd %*
 
 :checkOS
